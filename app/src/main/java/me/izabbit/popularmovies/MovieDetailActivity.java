@@ -38,6 +38,11 @@ public class MovieDetailActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     *  Loads the image into the image view. To use with the poster and backdrop images.
+     * @param image Image URL without path
+     * @param imageView imageView from layout
+     */
     private void loadImage(String image, ImageView imageView) {
         String baseUrl =  "http://image.tmdb.org/t/p/";
         Glide.with(MovieDetailActivity.this)

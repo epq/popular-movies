@@ -22,12 +22,12 @@ public class NetworkUtils {
      * Builds the URL used to query The Movie Database API.
      *
      * @param sort Sort movies by most popular or top rated
-     * @param API_KEY The Movie DB API key from the secrets.xml file
+     * @param API_KEY The Movie DB API key
      * @return The URL to use to query the GitHub.
      */
-    public static URL buildUrl(String sort, String API_KEY) {
+    public static URL buildUrl(String sort, String apiKey) {
         Uri builtUri = Uri.parse(MOVIEDB_URL + sort).buildUpon()
-                .appendQueryParameter(PARAMETER_API_KEY, API_KEY)
+                .appendQueryParameter(PARAMETER_API_KEY, apiKey)
                 .build();
         URL url = null;
         try {
@@ -66,7 +66,6 @@ public class NetworkUtils {
     }
 
     /**
-     *
      * Checks if Internet access is available
      * Source: https://stackoverflow.com/a/27312494
      * @return Boolean indicating whether or not there is Internet access.

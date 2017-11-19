@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,9 +30,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private static final String INTENT_MOVIE = "movie";
 
     private GridView mGridView;
-    private String mSortOrder = "Most Popular"; // sort order, default
+    private String mSortOrder = "Most Popular"; // movies list sort order, default is popular
     private MovieAdapter mMovieAdapter;
-    private String API_KEY = "";
+    private String apiKey = ""; // The Movie Database API Key from secrets.xml
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         });
 
         mMovieAdapter = new MovieAdapter(MainActivity.this);
-        API_KEY = getString(R.string.api_key);
+        apiKey = getString(R.string.api_key);
 
         // Restore sort order and scroll position of movie list on screen orientation change
         if (savedInstanceState != null) {
@@ -62,12 +61,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 mSortOrder = savedInstanceState.getString(STATE_SORT);
             }
             if (savedInstanceState.containsKey(STATE_MOVIE_LIST)) {
-                ArrayList<Movie> movieList = savedInstanceState.getParcelableArrayList(STATE_MOVIE_LIST);
+                ArrayList<Movie> movieList =
+                        savedInstanceState.getParcelableArrayList(STATE_MOVIE_LIST);
                 loadData(movieList);
             }
         }
         else {
-            // Show popular movies if there was no previous state
+            // Show the popular movies  by default if there was no previous state
             makeMovieQuery();
         }
     }
@@ -79,6 +79,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onSaveInstanceState(outState);
     }
 
+    /**
+     * Create the spinner options for most popular/top rated in the menu
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -99,6 +102,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         return true;
     }
 
+    /**
+     * Determines the selected movies lits sort order and calls QueryTask to fetch list of movies
+     * in the background.
+     */
     private void makeMovieQuery() {
         if (!NetworkUtils.isOnline()) {
             createAlertDialog();
@@ -111,11 +118,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             else if (mSortOrder.equals("Top Rated")) {
                 sort = "top_rated";
             }
-            URL url = NetworkUtils.buildUrl(sort, API_KEY);
+            URL url = NetworkUtils.buildUrl(sort, apiKey);
             new QueryTask().execute(url);
         }
     }
 
+    /**
+     * Creates alert dialog to display when there is no Internet connection.
+     */
     private void createAlertDialog() {
         AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
         alertDialog.setTitle("Info");
@@ -159,12 +169,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         @Override
         protected void onPostExecute(ArrayList<Movie> movieData) {
             if (movieData != null) {
-                Log.i("INFO", movieData.toString());
                 loadData(movieData);
             }
         }
     }
 
+    /**
+     * Binds GridView to movies list data
+     * @param movieData
+     */
     private void loadData(ArrayList<Movie> movieData) {
         mMovieAdapter.setItems(movieData);
         mGridView.setAdapter(mMovieAdapter);
