@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Popular Movies</string>
+    <string name="sort">Sort</string>
+    <string name="backdrop">Movie Backdrop</string>
+    <string name="poster">Movie Poster</string>
+    <string name="vote_average_total">%1$s/10</string>
+    <string-array name="sort_options">
+        <item>Most Popular</item>
+        <item>Top Rated</item>
+    </string-array>
+</resources>

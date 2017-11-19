@@ -1,0 +1,168 @@
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="192dp">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:collapsedTitleTextAppearance="@style/TextAppearance.AppCompat.Title"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Title"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:toolbarId="@+id/toolbar">
+
+            <ImageView
+                android:contentDescription="@string/backdrop"
+                android:id="@+id/iv_backdrop"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/backdrop"
+                app:layout_collapseMode="none"
+                app:layout_collapseParallaxMultiplier="0" />
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize" />
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_poster"
+            app:layout_constraintStart_toEndOf="@+id/iv_poster">
+
+            <ImageView
+                android:contentDescription="@string/poster"
+                android:id="@+id/iv_poster"
+                android:layout_width="180dp"
+                android:layout_height="223dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/movie" />
+
+            <TextView
+                android:id="@+id/tv_release_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                android:text="2008"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_synopsis"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iv_poster"
+                app:layout_constraintTop_toBottomOf="@+id/tv_rating"
+                android:layout_marginLeft="8dp" />
+
+            <TextView
+                android:id="@+id/tv_rating"
+                android:layout_width="172dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:text="Rating"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:typeface="sans"
+                app:layout_constraintBottom_toTopOf="@+id/tv_release_date"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iv_poster"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title"
+                android:layout_marginLeft="8dp" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="172dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart="8dp"
+                android:text="The Fall"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/tv_rating"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iv_poster"
+                app:layout_constraintTop_toBottomOf="@+id/guideline2"
+                app:layout_constraintVertical_chainStyle="packed"
+                android:layout_marginLeft="8dp" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_poster" />
+
+            <TextView
+                android:id="@+id/tv_synopsis"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:lineSpacingExtra="5sp"
+                android:text="Synopsis"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="16dp" />
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>
