@@ -22,7 +22,7 @@ public class NetworkUtils {
      * Builds the URL used to query The Movie Database API.
      *
      * @param sort Sort movies by most popular or top rated
-     * @param API_KEY The Movie DB API key
+     * @param apiKey The Movie DB API key
      * @return The URL to use to query the GitHub.
      */
     public static URL buildUrl(String sort, String apiKey) {
