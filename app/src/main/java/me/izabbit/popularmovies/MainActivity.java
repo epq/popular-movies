@@ -3,7 +3,6 @@ package me.izabbit.popularmovies;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -15,13 +14,9 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.Spinner;
 
-import org.json.JSONException;
-
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
-import me.izabbit.popularmovies.utilities.JsonUtils;
 import me.izabbit.popularmovies.utilities.NetworkUtils;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -126,7 +121,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 sort = "top_rated";
             }
             URL url = NetworkUtils.buildUrl(sort, apiKey);
-            new QueryTask().execute(url);
+
+            // Reference for extracting AsyncTask into its own file:
+            // http://www.jameselsey.co.uk/blogs/techblog/extracting-out-your-asynctasks-into-separate-classes-makes-your-code-cleaner/
+            new FetchQueryTask(this, new FetchQueryTaskListener()).execute(url);
         }
     }
 
@@ -157,27 +155,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onNothingSelected(AdapterView<?> adapterView) {
     }
 
-    public class QueryTask extends AsyncTask<URL, Void, ArrayList<Movie>> {
+    public class FetchQueryTaskListener implements QueryTaskCompleteListener<ArrayList<Movie>> {
         @Override
-        protected ArrayList<Movie> doInBackground(URL... params) {
-            URL searchUrl = params[0];
-            try {
-                String jsonResponse = NetworkUtils.getResponseFromHttpUrl(searchUrl);
-                return JsonUtils.getMovieDataFromJson(jsonResponse);
-            } catch (IOException e) {
-                e.printStackTrace();
-                return null;
-            } catch (JSONException e) {
-                e.printStackTrace();
-                return null;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<Movie> movieData) {
-            if (movieData != null) {
-                loadData(movieData);
-            }
+        public void onTaskComplete(ArrayList<Movie> movieData) {
+            loadData(movieData);
         }
     }
 
