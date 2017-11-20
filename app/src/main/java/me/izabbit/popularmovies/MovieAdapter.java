@@ -27,6 +27,9 @@ class MovieAdapter extends ArrayAdapter<Movie> {
     }
 
     public int getCount() {
+        if (mMoviesArray == null) {
+            return 0;
+        }
         return mMoviesArray.size();
     }
 

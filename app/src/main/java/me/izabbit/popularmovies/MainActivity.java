@@ -63,7 +63,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             if (savedInstanceState.containsKey(STATE_MOVIE_LIST)) {
                 ArrayList<Movie> movieList =
                         savedInstanceState.getParcelableArrayList(STATE_MOVIE_LIST);
-                loadData(movieList);
+                // Check for movieList == null to prevent app from crashing when there is no
+                // Internet connection and device orientation changes
+                if (movieList != null && !movieList.isEmpty()) {
+                    loadData(movieList);
+                }
+                else {
+                    makeMovieQuery();
+                }
             }
         }
         else {
