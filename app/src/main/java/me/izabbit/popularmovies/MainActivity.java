@@ -17,6 +17,9 @@ import android.widget.Spinner;
 import java.net.URL;
 import java.util.ArrayList;
 
+import butterknife.BindString;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import me.izabbit.popularmovies.utilities.NetworkUtils;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -24,17 +27,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private static final String STATE_MOVIE_LIST = "movieList";
     private static final String INTENT_MOVIE = "movie";
 
-    private GridView mGridView;
     private String mSortOrder = "Most Popular"; // movies list sort order, default is popular
     private MovieAdapter mMovieAdapter;
-    private String apiKey = ""; // The Movie Database API Key from secrets.xml
+    @BindView (R.id.grid_view) GridView mGridView;
+    @BindString (R.string.api_key) String apiKey; // The Movie Database API Key from secrets.xml
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
-        mGridView = findViewById(R.id.grid_view);
+        ButterKnife.bind(this);
+
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
@@ -48,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         });
 
         mMovieAdapter = new MovieAdapter(MainActivity.this);
-        apiKey = getString(R.string.api_key);
 
         // Restore sort order and scroll position of movie list on screen orientation change
         if (savedInstanceState != null) {
@@ -105,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     /**
-     * Determines the selected movies lits sort order and calls QueryTask to fetch list of movies
+     * Determines the selected movies list sort order and calls QueryTask to fetch list of movies
      * in the background.
      */
     private void makeMovieQuery() {

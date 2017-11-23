@@ -10,21 +10,24 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MovieDetailActivity extends AppCompatActivity {
+    @BindView(R.id.tv_title) TextView mMovieTitle;
+    @BindView(R.id.iv_backdrop) ImageView mBackdrop;
+    @BindView(R.id.iv_poster) ImageView mPoster;
+    @BindView(R.id.tv_release_date) TextView mReleaseDate;
+    @BindView(R.id.tv_rating) TextView mRating;
+    @BindView(R.id.tv_synopsis) TextView mSynopsis;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
-
-        TextView mMovieTitle = findViewById(R.id.tv_title);
-        ImageView mBackdrop = findViewById(R.id.iv_backdrop);
-        ImageView mPoster = findViewById(R.id.iv_poster);
-        TextView mReleaseDate = findViewById(R.id.tv_release_date);
-        TextView mRating = findViewById(R.id.tv_rating);
-        TextView mSynopsis = findViewById(R.id.tv_synopsis);
-
+        ButterKnife.bind(this);
         Intent intentThatStartedThisActivity = getIntent();
+
         if (intentThatStartedThisActivity != null) {
             if (intentThatStartedThisActivity.hasExtra("movie")) {
                 Movie movie = intentThatStartedThisActivity.getParcelableExtra("movie");
